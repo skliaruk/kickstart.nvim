@@ -90,6 +90,20 @@ return {
     vim.api.nvim_set_keymap('n', '<leader>ts', "<cmd>lua require('neotest').summary.toggle()<CR>", opts)
     -- Run all tests
     vim.api.nvim_set_keymap('n', '<leader>tp', "<cmd>lua require('neotest').run.run(vim.loop.cwd())<CR>", opts)
+    -- View test output (logs/errors) - opens in a split window
+    vim.api.nvim_set_keymap('n', '<leader>to', "<cmd>lua require('neotest').output.open()<CR>", opts)
+    -- View test output for nearest test (cursor position)
+    vim.api.nvim_set_keymap('n', '<leader>tO', "<cmd>lua require('neotest').output.open({ enter = true })<CR>", opts)
+    -- View output for last run test (shows full error immediately - BEST FOR QUICK ERROR VIEWING)
+    vim.api.nvim_set_keymap('n', '<leader>te', function()
+      local neotest = require('neotest')
+      local pos = neotest.run.get_last_run()
+      if pos then
+        neotest.output.open(pos)
+      else
+        vim.notify('No test has been run yet. Run a test first with <leader>tn or <leader>tf', vim.log.levels.INFO)
+      end
+    end, { desc = 'Show full error for last run test' })
     
     -- Debug command to check neotest status
     vim.api.nvim_create_user_command('NeotestDebug', function()
