@@ -17,6 +17,7 @@
   "neotest-java": { "branch": "main", "commit": "836c5f7afbb43d80cec3faef497799186cfbcdff" },
   "neotest-jest": { "branch": "main", "commit": "a36df9109c75bd1ae46b7bad274615dbbe6e4dcd" },
   "nvim-jdtls": { "branch": "master", "commit": "943e2398aba6b7e976603708450c6c93c600e830" },
+  "nvim-lsp-ts-utils": { "branch": "main", "commit": "0a6a16ef292c9b61eac6dad00d52666c7f84b0e7" },
   "nvim-lspconfig": { "branch": "master", "commit": "30a2b191bccf541ce1797946324c9329e90ec448" },
   "nvim-nio": { "branch": "master", "commit": "21f5324bfac14e22ba26553caf69ec76ae8a7662" },
   "nvim-tmux-navigation": { "branch": "main", "commit": "4898c98702954439233fdaf764c39636681e2861" },

@@ -125,6 +125,7 @@ vim.o.breakindent = true
 -- Save undo history
 vim.o.undofile = true
 
+vim.o.autowriteall = true
 -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
 vim.o.ignorecase = true
 vim.o.smartcase = true
@@ -217,6 +218,19 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
   callback = function()
     vim.hl.on_yank()
+  end,
+})
+
+-- Auto-save on focus lost and buffer leave
+--  Saves files automatically when you switch away or lose focus
+vim.api.nvim_create_autocmd({ 'FocusLost', 'BufLeave' }, {
+  desc = 'Auto-save on focus lost or buffer leave',
+  group = vim.api.nvim_create_augroup('kickstart-autosave', { clear = true }),
+  callback = function()
+    local buf = vim.api.nvim_get_current_buf()
+    if vim.bo[buf].buftype == '' and vim.bo[buf].modified then
+      vim.cmd('silent! update')
+    end
   end,
 })
 
@@ -506,7 +520,7 @@ require('lazy').setup({
 
       -- Allows extra capabilities provided by blink.cmp
       'saghen/blink.cmp',
-    },
+          },
     config = function()
       -- Brief aside: **What is LSP?**
       --
@@ -638,7 +652,7 @@ require('lazy').setup({
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
             end, '[T]oggle Inlay [H]ints')
           end
-        end,
+                  end,
       })
 
       -- Diagnostic Config
